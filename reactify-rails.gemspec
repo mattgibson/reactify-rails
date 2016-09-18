@@ -6,6 +6,7 @@ require "reactify/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "reactify-rails"
+  s.name        = "reactify-rails"
   s.version     = Reactify::VERSION
   s.authors     = ["Matt Gibson"]
   s.email       = ["downrightlies@gmail.com"]
@@ -26,6 +27,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.0.0"
 
   s.add_development_dependency "rspec"
+  s.add_development_dependency "ammeter"
+  s.add_development_dependency "sqlite3", ">= 1"
 
   s.required_ruby_version = "~> 2.2.3"
 end
