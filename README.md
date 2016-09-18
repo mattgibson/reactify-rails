@@ -1,3 +1,5 @@
+![Travis build status](https://travis-ci.org/mattgibson/reactify-rails.svg?branch=master)
+
 # Reactify::Rails
 Short description and motivation.
 
