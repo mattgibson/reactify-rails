@@ -7,6 +7,16 @@ module Reactify
 
       def install
         copy_file 'reactify_spa.html.erb', 'app/views/reactify_spa.html.erb'
+
+        inject_into_file 'app/controllers/application_controller.rb',
+                         after: "class ApplicationController < ActionController::Base\n" do
+          <<-RUBY
+  rescue_from ActionView::MissingTemplate do
+     render 'reactify_spa'
+  end
+
+          RUBY
+        end
       end
     end
   end
