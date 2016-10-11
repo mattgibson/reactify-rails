@@ -23,6 +23,11 @@ Or install it yourself as:
 $ gem install reactify-rails
 ```
 
+Then, run the install generator (commit your files to source control first!)
+```
+
+```
+
 ## Contributing
 Contribution directions go here.
 

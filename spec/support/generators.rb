@@ -3,7 +3,7 @@ module Reactify
     module Generators
       module Macros
         def set_default_destination
-          destination File.expand_path("../../../tmp", __FILE__)
+          destination File.expand_path("../../tmp", __FILE__)
         end
 
         def setup_default_destination

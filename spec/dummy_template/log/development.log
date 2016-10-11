@@ -1,0 +1,60 @@
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 60ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 21ms (Views: 18.0ms | ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 63ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 22ms (Views: 17.8ms | ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 56ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 18ms (Views: 15.7ms | ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 57ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 20ms (Views: 17.8ms | ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 55ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 21ms (Views: 16.5ms | ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 95ms (ActiveRecord: 0.0ms)
+
+
+Processing by HomeController#front_page as HTML
+  Rendering home/front_page.html.erb within layouts/application
+  Rendered home/front_page.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 17ms (Views: 14.8ms | ActiveRecord: 0.0ms)
+
+

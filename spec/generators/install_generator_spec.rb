@@ -5,7 +5,7 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
   setup_default_destination
 
   describe 'creating the HTML view for the SPA' do
-    subject { file('app/views/reactify_spa.html.erb') }
+    subject { file('app/views/reactify/spa.html.erb') }
 
     before { run_generator }
 
@@ -26,8 +26,8 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
     it 'contains the rescue block' do
       expect(subject).to contain <<-RUBY
-  rescue_from ActionView::MissingTemplate do
-     render 'reactify_spa'
+  rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
+     render 'reactify/spa'
   end
 
       RUBY

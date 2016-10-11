@@ -3,7 +3,7 @@ require 'rails_helper'
 describe HomeController, type: :controller do
   it 'renders the SPA when there is no template present' do
     get :index
-    expect(response).to render_template('reactify_spa')
+    expect(response).to render_template('reactify/spa')
   end
 
   it 'renders the template in the Rails /app/views directory if present' do
