@@ -6,6 +6,7 @@ module Reactify
       source_root File.expand_path("../templates", __FILE__)
 
       def add_spa_template
+        puts 'Adding default SPA template to Rails...'
         copy_file 'reactify_spa.html.erb', 'app/views/reactify/spa.html.erb'
       end
 
@@ -22,10 +23,12 @@ module Reactify
       end
 
       def make_package_json
+        puts 'Adding package.json for npm...'
         copy_file 'package.json', 'package.json'
       end
 
       def install_react
+        puts 'Installing React npm package...'
         Dir.chdir(destination_root) do
           puts `npm install --save react`
         end
