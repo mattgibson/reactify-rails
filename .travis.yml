@@ -6,5 +6,6 @@ rvm:
   - 2.3.0
   - 2.3.1
 cache:
+  bundler: true
   directories:
     - spec/dummy/node_modules
