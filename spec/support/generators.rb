@@ -24,7 +24,7 @@ module Reactify
         FileUtils.cp_r dummy_app_template_path,
                        dummy_app_path,
                        remove_destination: true
-        raise 'Could not create dummy app' unless File.exists? dummy_app_path
+        raise 'Could not create dummy app' unless File.exists? File.join(dummy_app_path, 'app/controllers/application_controller.rb')
       end
 
       def remove_dummy_app
