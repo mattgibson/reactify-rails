@@ -33,6 +33,13 @@ module Reactify
           puts `npm install --save react`
         end
       end
+
+      def install_redux
+        puts 'Installing Redux npm package...'
+        Dir.chdir(destination_root) do
+          puts `npm install --save redux`
+        end
+      end
     end
   end
 end

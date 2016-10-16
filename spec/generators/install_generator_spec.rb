@@ -38,4 +38,10 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
     it { is_expected.to exist }
   end
+
+  describe 'installing redux' do
+    subject { file_in_dummy_app('node_modules/redux') }
+
+    it { is_expected.to exist }
+  end
 end
