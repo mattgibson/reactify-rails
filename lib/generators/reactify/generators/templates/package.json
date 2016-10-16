@@ -1,5 +1,7 @@
 {
   "name": "dummy",
+  "repository": {
+  },
   "version": "1.0.0",
   "description": "Dummy app for testing",
   "main": "index.js",
