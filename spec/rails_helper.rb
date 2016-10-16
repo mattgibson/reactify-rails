@@ -8,4 +8,5 @@ Reactify::Generators::InstallGenerator.start([], {
   destination_root: Reactify::Specs::Generators.dummy_app_path
 })
 
-require File.expand_path('../dummy/config/environment.rb', __FILE__)
+require File.expand_path('config/environment.rb',
+                         Reactify::Specs::Generators.dummy_app_path)

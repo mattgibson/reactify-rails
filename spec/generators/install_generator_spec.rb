@@ -1,28 +1,15 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'generators/reactify/generators/install_generator'
 
 describe Reactify::Generators::InstallGenerator, type: :generator do
-  setup_default_destination
-
   describe 'creating the HTML view for the SPA' do
-    subject { file('app/views/reactify/spa.html.erb') }
-
-    before { run_generator }
+    subject { file_in_dummy_app('app/views/reactify/spa.html.erb') }
 
     it { is_expected.to exist }
   end
 
   describe 'adding the default render to application controller' do
-    before do
-      # Put the application controller file into the destination folder
-      dest = File.expand_path('app/controllers', destination_root)
-      FileUtils.mkdir_p dest
-      FileUtils.cp File.expand_path('../../dummy/app/controllers/application_controller.rb', __FILE__),
-                   dest
-      run_generator
-    end
-
-    subject { file('app/controllers/application_controller.rb') }
+    subject { file_in_dummy_app('app/controllers/application_controller.rb') }
 
     it 'contains the rescue block' do
       expect(subject).to contain <<-RUBY
@@ -32,5 +19,23 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
       RUBY
     end
+  end
+
+  describe 'creating package.json' do
+    subject { file_in_dummy_app('package.json') }
+
+    it { is_expected.to exist }
+  end
+
+  describe 'running npm' do
+    subject { file_in_dummy_app('node_modules') }
+
+    it { is_expected.to exist }
+  end
+
+  describe 'installing react' do
+    subject { file_in_dummy_app('node_modules/react') }
+
+    it { is_expected.to exist }
   end
 end

@@ -1,7 +1,6 @@
-
-
 require 'rails/all'
-require 'ammeter/init'
+require 'rspec/core'
+require 'rspec/rails'
 require 'rails-controller-testing'
 # Rspec is missing an include for this somewhere
 require 'rspec/core/formatters/console_codes'
@@ -20,5 +19,3 @@ RSpec.configure do |config|
     Reactify::Specs::Generators.remove_dummy_app
   end
 end
-
-

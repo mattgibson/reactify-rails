@@ -1,28 +1,8 @@
 module Reactify
   module Specs
     module Generators
-      extend ActiveSupport::Concern
-
-      module ClassMethods
-        def set_default_destination
-          destination File.expand_path("../../tmp", __FILE__)
-        end
-
-        def setup_default_destination
-          set_default_destination
-          before do
-            prepare_destination
-
-            # Copy the application controller file into the destination folder
-            # So that the generator has something to work with.
-            destination_path = File.expand_path('app/controllers', destination_root)
-            FileUtils.mkdir_p destination_path
-            source_path = File.expand_path('app/controllers/application_controller.rb',
-                                           Reactify::Specs::Generators.dummy_app_template_path)
-            FileUtils.cp File.expand_path(source_path, __FILE__), destination_path
-          end
-          after(:all) { prepare_destination }
-        end
+      def file_in_dummy_app(path)
+        File.expand_path path, dummy_app_path
       end
 
       # These methods allow us to copy the dummy app template to the dummy
