@@ -31,5 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3", ">= 1"
   s.add_development_dependency "rails-controller-testing"
 
-  s.required_ruby_version = "~> 2.2.3"
+  s.required_ruby_version = ">= 2.2.3"
 end
