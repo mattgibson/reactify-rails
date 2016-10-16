@@ -24,6 +24,7 @@ module Reactify
         FileUtils.cp_r dummy_app_template_path,
                        dummy_app_path,
                        remove_destination: true
+        raise 'Could not create dummy app' unless File.exists? dummy_app_path
       end
 
       def remove_dummy_app
