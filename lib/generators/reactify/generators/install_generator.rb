@@ -40,6 +40,18 @@ module Reactify
           puts `npm install --save redux`
         end
       end
+
+      def install_webpack
+        puts 'Installing Webpack npm package...'
+        Dir.chdir(destination_root) do
+          puts `npm install --save webpack`
+        end
+      end
+
+      def add_webpack_config
+        puts 'Adding Webpack config files...'
+        copy_file 'webpack.base.config.js', ''
+      end
     end
   end
 end
