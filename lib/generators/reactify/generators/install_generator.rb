@@ -27,30 +27,23 @@ module Reactify
         copy_file 'package.json', 'package.json'
       end
 
-      def install_react
-        puts 'Installing React npm package...'
+      def npm_install
+        puts 'Installing npm packages...'
         Dir.chdir(destination_root) do
-          puts `npm install --save react`
-        end
-      end
-
-      def install_redux
-        puts 'Installing Redux npm package...'
-        Dir.chdir(destination_root) do
-          puts `npm install --save redux`
-        end
-      end
-
-      def install_webpack
-        puts 'Installing Webpack npm package...'
-        Dir.chdir(destination_root) do
-          puts `npm install --save webpack`
+          puts `npm install`
         end
       end
 
       def add_webpack_config
         puts 'Adding Webpack config files...'
-        copy_file 'webpack.base.config.js', ''
+        copy_file 'webpack.base.config.js', 'config/webpack.base.config.js'
+        copy_file 'webpack.prod.config.js', 'config/webpack.prod.config.js'
+        copy_file 'webpack.dev.config.js', 'config/webpack.dev.config.js'
+      end
+
+      def add_procfile
+        puts 'Adding Procfile...'
+        copy_file 'Procfile', 'Procfile'
       end
     end
   end
