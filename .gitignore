@@ -7,3 +7,5 @@ spec/dummy_template/log/*.log
 spec/dummy_template/tmp/
 spec/tmp
 spec/dummy
+
+node_modules
