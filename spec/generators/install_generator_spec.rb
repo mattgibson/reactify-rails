@@ -22,6 +22,12 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
   end
 
   describe 'npm' do
+    before :all do
+      Rails::Generators.invoke('reactify:install', [], {
+        destination_root: Reactify::Specs::Generators.dummy_app_path,
+      })
+    end
+
     describe 'creating package.json' do
       subject { file_in_dummy_app('package.json') }
 

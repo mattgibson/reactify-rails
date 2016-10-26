@@ -5,13 +5,19 @@ module Reactify
     class InstallGenerator < Rails::Generators::Base
       source_root File.expand_path("../templates", __FILE__)
 
+      class_option 'without-npm', type: :boolean, default: false, lazy_default: true
+
       def add_spa_template
         puts 'Adding default SPA template to Rails...'
         copy_file 'reactify_spa.html.erb', 'app/views/reactify/spa.html.erb'
       end
 
       def add_rescue_block_to_application_controller
-        inject_into_file 'app/controllers/application_controller.rb',
+        file_path = 'app/controllers/application_controller.rb'
+        return if File.readlines(File.join(destination_root, file_path)).grep(/reactify/).any?
+
+        puts 'Adding rescue block to ApplictionController'
+        inject_into_file file_path,
                          after: "class ApplicationController < ActionController::Base\n" do
           <<-RUBY
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
@@ -28,6 +34,10 @@ module Reactify
       end
 
       def npm_install
+        if options['without-npm']
+          puts 'Skipping npm install because --without-npm option was passed'
+          return
+        end
         puts 'Installing npm packages...'
         Dir.chdir(destination_root) do
           puts `npm install`
