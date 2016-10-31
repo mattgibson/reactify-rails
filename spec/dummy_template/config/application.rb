@@ -1,3 +1,5 @@
+$stdout.sync = true # For easier foreman debugging
+
 require_relative 'boot'
 
 require 'rails/all'

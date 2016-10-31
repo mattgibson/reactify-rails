@@ -7,6 +7,19 @@ Short description and motivation.
 How to use my plugin.
 
 ## Installation
+
+### For a new project
+
+Run `rails new` with your favourite settings, then `cd` into the directory and 
+continue as below.
+
+### For an existing project
+
+Reactify-Rails is intended to work alongside your existing sprockets javascipt.
+You can safely install it over the top of an existing Rails app and everything
+else should continue to work perfectly. Be sure sure to commit your work to
+source control before running the generator though!
+
 Add this line to your application's Gemfile:
 
 ```ruby

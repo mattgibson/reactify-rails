@@ -1,3 +1,5 @@
 source "https://rubygems.org"
 
 gem 'reactify-rails', path: File.join(File.dirname(__FILE__), '..', '..')
+
+gem 'sqlite3'

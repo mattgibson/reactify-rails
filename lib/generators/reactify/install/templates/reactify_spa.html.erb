@@ -1,0 +1,11 @@
+<div id="reactify-app">
+  <h1>
+    JavaScript doesn't seem to be enabled.
+  </h1>
+</div>
+<% if Rails.env.development? %>
+  <%= javascript_include_tag 'http://localhost:8080/webpack/reactify_spa.js' %>
+<% else %>
+  <%= javascript_include_tag '/webpack/reactify_spa.js' %>
+<% end %>
+

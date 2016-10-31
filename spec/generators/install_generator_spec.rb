@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'generators/reactify/generators/install_generator'
+require 'generators/reactify/install/install_generator'
 
 describe Reactify::Generators::InstallGenerator, type: :generator do
   describe 'creating the HTML view for the SPA' do
@@ -23,9 +23,7 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
   describe 'npm' do
     before :all do
-      Rails::Generators.invoke('reactify:install', [], {
-        destination_root: Reactify::Specs::Generators.dummy_app_path,
-      })
+      Reactify::Specs::Generators.run_npm_generator
     end
 
     describe 'creating package.json' do
@@ -48,6 +46,12 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
     describe 'installing redux' do
       subject { file_in_dummy_app('node_modules/redux') }
+
+      it { is_expected.to exist }
+    end
+
+    describe 'running the postinstall task' do
+      subject { file_in_dummy_app('public/webpack/reactify_spa.js') }
 
       it { is_expected.to exist }
     end
@@ -81,6 +85,14 @@ webpack: npm run webpack
 
     describe 'base config' do
       subject { file_in_dummy_app('config/webpack.base.config.js') }
+
+      it { is_expected.to exist }
+    end
+  end
+
+  describe 'webpack folder' do
+    describe 'the reactify_spa.js file' do
+      subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
 
       it { is_expected.to exist }
     end

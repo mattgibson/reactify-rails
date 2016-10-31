@@ -15,4 +15,7 @@ gemspec
 
 group :test do
   gem 'ammeter'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'capybara-screenshot'
 end

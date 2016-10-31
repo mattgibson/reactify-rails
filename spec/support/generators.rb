@@ -36,6 +36,16 @@ module Reactify
       def remove_dummy_app
         FileUtils.rm_r dummy_app_path if File.directory? dummy_app_path
       end
+
+      def run_npm_generator
+        return if File.exists? File.join(Reactify::Specs::Generators.dummy_app_path, 'node_modules')
+        Rails::Generators.invoke('reactify:install', [], {
+          destination_root: Reactify::Specs::Generators.dummy_app_path,
+        })
+        Dir.chdir(Reactify::Specs::Generators.dummy_app_path) do
+          puts `npm run postinstall`
+        end
+      end
     end
   end
 end

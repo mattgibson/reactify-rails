@@ -1,17 +1,18 @@
 require 'spec_helper'
-require 'ammeter'
+require_relative 'create_rails_from_template'
+# This needs Rails to be already in place in /dummy so that it can load stuff
+# and set up routes for capybara.
+require 'rspec/rails'
 
-# Get a Rails dummy app ready that already has the install generator run. We
-# want to run the generator again on a fresh install of the dummy app each time
-# as the generator code may have changed.
-#
-# This can't go in a before :suite hook as then the Rails constants like
-# HomeController are not loaded
-Reactify::Specs::Generators.create_fresh_dummy_app
+require 'capybara/poltergeist'
+require 'capybara-screenshot/rspec'
 
-Rails::Generators.invoke('reactify:install', ['--without-npm'], {
-  destination_root: Reactify::Specs::Generators.dummy_app_path,
-})
+Capybara.javascript_driver = :poltergeist
 
-require File.expand_path('config/environment.rb',
-                         Reactify::Specs::Generators.dummy_app_path)
+RSpec.configure do |config|
+  config.include ::Rails::Controller::Testing::TemplateAssertions, type: :controller
+
+  config.after :suite do
+    Reactify::Specs::Generators.remove_dummy_app
+  end
+end
