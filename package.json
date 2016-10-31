@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Ruby gem to add a React single page app to Rails as the default render.",
   "main": "index.js",
-  "scripts": {
-    "test": "npm test"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mattgibson/reactify-rails.git"
