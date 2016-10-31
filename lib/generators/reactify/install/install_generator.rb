@@ -36,6 +36,7 @@ module Reactify
       def make_package_json
         puts 'Adding package.json for npm...'
         copy_file 'package.json', 'package.json'
+        copy_file 'yarn.lock', 'yarn.lock'
       end
 
       def add_webpack_config
@@ -58,6 +59,10 @@ module Reactify
         if options['without-npm']
           puts 'Skipping npm install because --without-npm option was passed'
           return
+        end
+        if `yarn --version` =~ /No such/
+          puts 'Installing Yarn...'
+          puts `npm install -g yarnpkg`
         end
         puts 'Installing npm packages with yarn...'
         Dir.chdir(destination_root) do

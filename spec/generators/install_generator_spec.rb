@@ -32,6 +32,12 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
       it { is_expected.to exist }
     end
 
+    describe 'creating yarn.lock' do
+      subject { file_in_dummy_app('yarn.lock') }
+
+      it { is_expected.to exist }
+    end
+
     describe 'running npm' do
       subject { file_in_dummy_app('node_modules') }
 
