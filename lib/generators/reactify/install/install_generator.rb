@@ -60,9 +60,9 @@ module Reactify
           puts 'Skipping npm install because --without-npm option was passed'
           return
         end
-        if `yarn --version` =~ /No such/
+        if `yarn --version  2>&1` =~ /not found/
           puts 'Installing Yarn...'
-          puts `npm install -g yarnpkg`
+          puts `npm install -g yarn`
         end
         puts 'Installing npm packages with yarn...'
         Dir.chdir(destination_root) do

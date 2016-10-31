@@ -9,3 +9,7 @@ cache:
   bundler: true
   directories:
     - spec/dummy/node_modules
+
+language: node_js
+node_js:
+  - "6.7"

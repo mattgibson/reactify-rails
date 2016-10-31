@@ -10,6 +10,9 @@
     "webpack": "./node_modules/.bin/webpack-dev-server -d --config config/webpack.dev.config.js --hot --progress --colors --inline",
     "postinstall": "NODE_ENV=production webpack --progress --color -p --config config/webpack.prod.config.js"
   },
+  "engines": {
+    "node": "^6.7"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
