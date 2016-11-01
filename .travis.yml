@@ -11,7 +11,4 @@ cache:
     - spec/dummy/node_modules
 before_install:
   - nvm install 6.7.0
-  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
-  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
-  - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
+  - export PATH=$PWD/travis_phantomjs/phantomjs-2.0.0-ubuntu-12.04/bin:$PATH; if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs && wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 && tar -xvf $PWD/travis_phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis_phantomjs; fi
