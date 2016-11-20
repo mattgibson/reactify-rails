@@ -100,8 +100,26 @@ webpack: npm run webpack
   end
 
   describe 'webpack folder' do
-    describe 'the reactify_spa.js file' do
+    describe 'the reactify_spa.jsx file' do
       subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
+
+      it { is_expected.to exist }
+    end
+
+    describe 'the redux store' do
+      subject { file_in_dummy_app('webpack/store/index.js')}
+
+      it { is_expected.to exist }
+    end
+
+    describe 'the reducers' do
+      subject { file_in_dummy_app('webpack/reducers/index.js') }
+
+      it { is_expected.to exist }
+    end
+
+    describe 'the redux immutify state file' do
+      subject { file_in_dummy_app('webpack/store/immutify-state.js') }
 
       it { is_expected.to exist }
     end

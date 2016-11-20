@@ -19,8 +19,8 @@ to peacefully coexist with whatever Sprockets stuff you might already have. All
 of the JavaScript will live in `/webpack` in order to keep it totally separate
 from the rest of the app.
 * Modern JavaScript is worth learning and using. Webpack allows us to easily 
-use [Babel](https://babeljs.io/) to transpile ES6/7, so this is set up from the start. We also have
-instant access to everything that npm has to offer
+use [Babel](https://babeljs.io/) to transpile ES6/7, so this is set up from the 
+Start. We also have instant access to everything that npm has to offer.
 * Live reloading of JS and CSS is a huge time saver. This is also set up out of 
 the box using [react-hot-loader V3](https://github.com/gaearon/react-hot-loader)
 * The best approach to using React and Rails is ultimately to have a single page

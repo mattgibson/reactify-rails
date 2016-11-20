@@ -56,6 +56,9 @@ module Reactify
 
       def make_webpack_folder
         copy_file 'reactify_spa.jsx', 'webpack/reactify_spa.jsx'
+        copy_file 'redux/store.js', 'webpack/store/index.js'
+        copy_file 'redux/immutify-state.js', 'webpack/store/immutify-state.js'
+        copy_file 'redux/reducers.js', 'webpack/reducers/index.js'
       end
 
       def npm_install

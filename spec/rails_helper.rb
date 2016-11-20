@@ -13,6 +13,8 @@ RSpec.configure do |config|
   config.include ::Rails::Controller::Testing::TemplateAssertions, type: :controller
 
   config.after :suite do
-    Reactify::Specs::Generators.remove_dummy_app
+    unless ENV.fetch('PRESERVE_DUMMY', false)
+      Reactify::Specs::Generators.remove_dummy_app
+    end
   end
 end
