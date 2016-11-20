@@ -14,7 +14,10 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
     it 'contains the rescue block' do
       expect(subject).to contain <<-RUBY
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
-     render 'reactify/spa'
+    respond_to do |format|
+      @view_assigns = view_assigns
+      format.html { render 'reactify/spa' }
+    end
   end
 
       RUBY
@@ -70,7 +73,7 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
 
     it 'contains the right directives' do
       expect(subject).to contain <<-RUBY
-web: bundle exec rails s
+web: bundle exec rails s -p 3000
 webpack: npm run webpack
       RUBY
     end

@@ -21,7 +21,10 @@ module Reactify
                          after: "class ApplicationController < ActionController::Base\n" do
           <<-RUBY
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
-     render 'reactify/spa'
+    respond_to do |format|
+      @view_assigns = view_assigns
+      format.html { render 'reactify/spa' }
+    end
   end
 
           RUBY

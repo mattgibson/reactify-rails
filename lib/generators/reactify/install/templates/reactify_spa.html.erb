@@ -3,6 +3,9 @@
     JavaScript doesn't seem to be enabled.
   </h1>
 </div>
+<script tpye="text/javascript">
+  window.__CONTROLLER_VARIABLES__ = <%= @view_assigns.to_json.html_safe %>;
+</script>
 <% if Rails.env.development? %>
   <%= javascript_include_tag 'http://localhost:8080/webpack/reactify_spa.js' %>
 <% else %>
