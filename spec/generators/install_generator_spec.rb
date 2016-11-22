@@ -124,4 +124,12 @@ webpack: npm run webpack
       it { is_expected.to exist }
     end
   end
+
+  describe 'Gemfile' do
+    subject { file_in_dummy_app('Gemfile') }
+
+    it 'adds the execjs gem' do
+      expect(subject).to contain("gem 'execjs'")
+    end
+  end
 end

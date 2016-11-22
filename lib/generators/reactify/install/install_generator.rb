@@ -7,6 +7,10 @@ module Reactify
 
       class_option 'without-npm', type: :boolean, default: false, lazy_default: true
 
+      def add_gems
+        gem 'execjs'
+      end
+
       def add_spa_template
         puts 'Adding default SPA template to Rails...'
         copy_file 'reactify_spa.html.erb', 'app/views/reactify/spa.html.erb'
