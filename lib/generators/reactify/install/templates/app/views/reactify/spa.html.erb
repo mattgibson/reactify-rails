@@ -1,9 +1,11 @@
 <div id="reactify-app">
   <h1>
-    JavaScript doesn't seem to be enabled.
+    <%=
+      @pre_redered_html
+    %>
   </h1>
 </div>
-<script tpye="text/javascript">
+<script type="text/javascript">
   window.__CONTROLLER_VARIABLES__ = <%= @view_assigns.to_json.html_safe %>;
 </script>
 <% if Rails.env.development? %>

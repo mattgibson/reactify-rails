@@ -95,6 +95,14 @@ reads `package.json` and sees the `postinstall` task, but otherwise, run this
 command: `npm run postinstall` as part of your deploy process.
 
 
+## Checking the output when developing
+
+The generator specs run the generator against a dummy app in `/spec/dummy_template`,
+which is copies to `/spec/dummy` at the start of each test run, has the generator 
+applied to it, then gets removed at the end. If you want to keep it around so you 
+can run `rails s` and view the output in the browser, set the `PRESERVE_DUMMY` to `true`
+whilst running the specs.
+
 ## Contributing
 Contributions are very much welcomed, but please follow the procedure below:
 

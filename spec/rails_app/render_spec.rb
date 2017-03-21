@@ -18,5 +18,12 @@ describe HomeController, type: :controller do
       get :spa
       expect(response.body).to include('"test_var":123')
     end
+
+    context 'server side rendering' do
+      it 'shows the rendered html' do
+        get :spa
+        expect(response.body).to include('Hello world')
+      end
+    end
   end
 end

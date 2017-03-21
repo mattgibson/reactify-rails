@@ -47,6 +47,12 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
       it { is_expected.to exist }
     end
 
+    describe 'js output files' do
+      subject { file_in_dummy_app('public/webpack/reactify_spa.js') }
+
+      it { is_expected.to exist }
+    end
+
     describe 'installing react' do
       subject { file_in_dummy_app('node_modules/react') }
 
@@ -101,6 +107,12 @@ webpack: npm run webpack
 
   describe 'webpack folder' do
     describe 'the reactify_spa.jsx file' do
+      subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
+
+      it { is_expected.to exist }
+    end
+
+    describe 'the server_render.jsx file' do
       subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
 
       it { is_expected.to exist }

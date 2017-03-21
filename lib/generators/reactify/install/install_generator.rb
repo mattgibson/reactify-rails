@@ -1,4 +1,5 @@
 require 'rails/generators'
+require 'execjs'
 
 module Reactify
   module Generators
@@ -7,27 +8,40 @@ module Reactify
 
       class_option 'without-npm', type: :boolean, default: false, lazy_default: true
 
-      def add_gems
-        gem 'execjs'
-      end
-
-      def add_spa_template
-        puts 'Adding default SPA template to Rails...'
-        copy_file 'reactify_spa.html.erb', 'app/views/reactify/spa.html.erb'
-      end
-
       def add_rescue_block_to_application_controller
         file_path = 'app/controllers/application_controller.rb'
         return if File.readlines(File.join(destination_root, file_path)).grep(/reactify/).any?
 
         puts 'Adding rescue block to ApplicationController'
+
+        inject_into_file file_path, after: /\A/ do
+          "require 'open3'\n\n"
+        end
+
         inject_into_file file_path,
                          after: "class ApplicationController < ActionController::Base\n" do
           <<-RUBY
   rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
     respond_to do |format|
-      @view_assigns = view_assigns
-      format.html { render 'reactify/spa' }
+      filename = Rails.root.join 'webpack', 'server_render_listener.js'
+      the_js = ''
+
+      begin
+        stdin, stdout_stderror = Open3.popen2e "node \#{filename}"
+
+        stdin.puts view_assigns
+        stdin.puts '__END__'
+
+        while (line = stdout_stderror.gets) && !/__END__/.match?(line) do
+          the_js += line
+        end
+
+      rescue => e
+        the_js += e.to_s
+        # Already in a rescue block because of rescue_from, so re-raise is ignored.
+      end
+
+      format.html { render html: the_js }
     end
   end
 
@@ -35,34 +49,11 @@ module Reactify
         end
       end
 
-      def copy_components_to_webpack_folder
-        puts 'Creating react components...'
-        copy_file 'components/hello-world.jsx', 'webpack/components/hello-world.jsx'
-      end
-
-      def make_package_json
-        puts 'Adding package.json for npm...'
-        copy_file 'package.json', 'package.json'
-        copy_file 'yarn.lock', 'yarn.lock'
-      end
-
-      def add_webpack_config
-        puts 'Adding Webpack config files...'
-        copy_file 'config/webpack.base.config.js', 'config/webpack.base.config.js'
-        copy_file 'config/webpack.prod.config.js', 'config/webpack.prod.config.js'
-        copy_file 'config/webpack.dev.config.js', 'config/webpack.dev.config.js'
-      end
-
-      def add_procfile
-        puts 'Adding Procfile...'
-        copy_file 'Procfile', 'Procfile'
-      end
-
-      def make_webpack_folder
-        copy_file 'reactify_spa.jsx', 'webpack/reactify_spa.jsx'
-        copy_file 'redux/store.js', 'webpack/store/index.js'
-        copy_file 'redux/immutify-state.js', 'webpack/store/immutify-state.js'
-        copy_file 'redux/reducers.js', 'webpack/reducers/index.js'
+      def copy_templates
+        Dir["#{File.dirname(__FILE__)}/templates/**/*.*"].each do |path|
+          relative_path =  path.gsub("#{File.dirname(__FILE__)}/templates/", '')
+          copy_file relative_path, relative_path
+        end
       end
 
       def npm_install
@@ -72,11 +63,11 @@ module Reactify
         end
         if `yarn --version  2>&1` =~ /not found/
           puts 'Installing Yarn...'
-          puts `npm install -g yarn`
+          puts `npm install -g yarn --ignore-scripts`
         end
         puts 'Installing npm packages with yarn...'
         Dir.chdir(destination_root) do
-          puts `yarn install`
+          puts `yarn install --ignore-scripts`
         end
       end
     end
