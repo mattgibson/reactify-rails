@@ -2,8 +2,8 @@ import React                         from 'react';
 import { Provider }                  from 'react-redux';
 import { renderToString }            from 'react-dom/server';
 import { AppContainer }              from 'react-hot-loader';
-import { default as App }            from './components/app';
-import { default as storeCreator }   from './redux/store';
+import App                           from './components/app';
+import storeCreator                  from './redux/store';
 
 module.exports = function (jsonData) {
   // Get empty store

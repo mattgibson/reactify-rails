@@ -1,19 +1,19 @@
 // This file gets processed only on the client. It should produce the exact same
 // markup as the server render.
 
-import { AppContainer }         from 'react-hot-loader';
+import React                     from 'react';
+import { AppContainer }          from 'react-hot-loader';
 import { render }                from 'react-dom';
 import { Provider }              from 'react-redux';
-import { default as App } from './components/app';
-import React                     from 'react';
-import { default as storeCreator }      from './redux/store';
+import App                       from './components/app';
+import storeCreator              from './redux/store';
 
 const rootElement = document.getElementById('reactify-app');
 
 const store = storeCreator();
 const dispatch = store.dispatch;
 
-__webpack_public_path__ = "http://localhost:8080/webpack/";
+__webpack_public_path__ = 'http://localhost:8080/webpack/';
 
 dispatch({
   type: 'LOAD_HELLO_WORLD',

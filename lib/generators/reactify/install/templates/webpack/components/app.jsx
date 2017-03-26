@@ -1,8 +1,8 @@
-// This is the main container for the application you make. It will be
-// rendered and hot updated automatically.
+// This is the main container for the application you make. Get started
+// by making your own components and adding them here.
 
 import React from 'react';
-import { default as HelloWorld } from './hello-world';
+import HelloWorld from './hello-world';
 
 const App = () => (
   <HelloWorld />
