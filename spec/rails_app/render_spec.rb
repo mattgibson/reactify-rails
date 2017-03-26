@@ -16,7 +16,7 @@ describe HomeController, type: :controller do
 
     it 'adds the controller variables to the javascript' do
       get :spa
-      expect(response.body).to include('"test_var":123')
+      expect(response.body).to include('&quot;test_var&quot;: 123')
     end
 
     context 'server side rendering' do

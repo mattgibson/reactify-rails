@@ -21,5 +21,5 @@ export class HelloWorld extends React.Component {
 }
 
 export default connect((state, ownProps) => ({
-  state: state,
+  state: state.helloWorld,
 }))(HelloWorld);

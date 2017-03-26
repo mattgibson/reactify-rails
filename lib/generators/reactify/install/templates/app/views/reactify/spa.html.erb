@@ -1,16 +1,10 @@
-<div id="reactify-app">
-  <h1>
-    <%=
-      @pre_redered_html
-    %>
-  </h1>
-</div>
+<div id="reactify-app"><%= @reactify_pre_rendered_html.strip.html_safe %></div>
 <script type="text/javascript">
-  window.__CONTROLLER_VARIABLES__ = <%= @view_assigns.to_json.html_safe %>;
+  window.__CONTROLLER_VARIABLES__ = <%= @reactify_view_assigns.html_safe %>;
 </script>
 <% if Rails.env.development? %>
-  <%= javascript_include_tag 'http://localhost:8080/webpack/reactify_spa.js' %>
+  <%= javascript_include_tag 'http://localhost:8080/webpack/reactify_bundle.js' %>
 <% else %>
-  <%= javascript_include_tag '/webpack/reactify_spa.js' %>
+  <%= javascript_include_tag '/webpack/reactify_bundle.js' %>
 <% end %>
 

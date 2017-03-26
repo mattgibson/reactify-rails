@@ -1,13 +1,26 @@
-import React                     from 'react';
-import { Provider }              from 'react-redux';
-import { renderToString }        from 'react-dom/server';
-import { default as HelloWorld }            from './components/hello-world';
-import store                     from './redux/store';
+import React                         from 'react';
+import { Provider }                  from 'react-redux';
+import { renderToString }            from 'react-dom/server';
+import { AppContainer }              from 'react-hot-loader';
+import { default as App }            from './components/app';
+import { default as storeCreator }   from './redux/store';
 
-module.exports = function (state) {
+module.exports = function (jsonData) {
+  // Get empty store
+  const store = storeCreator();
+  const dispatch = store.dispatch;
+
+  dispatch({ type: 'LOAD_HELLO_WORLD', data: jsonData });
+
+  // Get action names we want
+
+  // Fire actions with the incoming data so that the store ia built
+
   return renderToString(
-    <Provider store={store(state)}>
-      <HelloWorld />
-    </Provider>
+    <AppContainer>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </AppContainer>
   );
 };

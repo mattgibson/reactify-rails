@@ -8,22 +8,6 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
     it { is_expected.to exist }
   end
 
-  describe 'adding the default render to application controller' do
-    subject { file_in_dummy_app('app/controllers/application_controller.rb') }
-
-    it 'contains the rescue block' do
-      expect(subject).to contain <<-RUBY
-  rescue_from ActionView::MissingTemplate, ActionController::UnknownFormat do
-    respond_to do |format|
-      @view_assigns = view_assigns
-      format.html { render 'reactify/spa' }
-    end
-  end
-
-      RUBY
-    end
-  end
-
   describe 'npm' do
     before :all do
       Reactify::Specs::Generators.run_npm_generator
@@ -47,12 +31,6 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
       it { is_expected.to exist }
     end
 
-    describe 'js output files' do
-      subject { file_in_dummy_app('public/webpack/reactify_spa.js') }
-
-      it { is_expected.to exist }
-    end
-
     describe 'installing react' do
       subject { file_in_dummy_app('node_modules/react') }
 
@@ -66,7 +44,7 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
     end
 
     describe 'running the postinstall task' do
-      subject { file_in_dummy_app('public/webpack/reactify_spa.js') }
+      subject { file_in_dummy_app('public/webpack/reactify_bundle.js') }
 
       it { is_expected.to exist }
     end
@@ -107,41 +85,33 @@ webpack: npm run webpack
 
   describe 'webpack folder' do
     describe 'the reactify_spa.jsx file' do
-      subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
+      subject { file_in_dummy_app('webpack/client_renderer.jsx') }
 
       it { is_expected.to exist }
     end
 
     describe 'the server_render.jsx file' do
-      subject { file_in_dummy_app('webpack/reactify_spa.jsx') }
+      subject { file_in_dummy_app('webpack/server_renderer.jsx') }
+
+      it { is_expected.to exist }
+    end
+
+    describe 'the server_render_listener.jsx file' do
+      subject { file_in_dummy_app('webpack/server_render_listener.js') }
 
       it { is_expected.to exist }
     end
 
     describe 'the redux store' do
-      subject { file_in_dummy_app('webpack/store/index.js')}
+      subject { file_in_dummy_app('webpack/redux/store/index.js')}
 
       it { is_expected.to exist }
     end
 
     describe 'the reducers' do
-      subject { file_in_dummy_app('webpack/reducers/index.js') }
+      subject { file_in_dummy_app('webpack/redux/reducers/index.js') }
 
       it { is_expected.to exist }
-    end
-
-    describe 'the redux immutify state file' do
-      subject { file_in_dummy_app('webpack/store/immutify-state.js') }
-
-      it { is_expected.to exist }
-    end
-  end
-
-  describe 'Gemfile' do
-    subject { file_in_dummy_app('Gemfile') }
-
-    it 'adds the execjs gem' do
-      expect(subject).to contain("gem 'execjs'")
     end
   end
 end

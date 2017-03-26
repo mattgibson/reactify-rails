@@ -38,10 +38,11 @@ module Reactify
       end
 
       def run_npm_generator
-        return if File.exists? File.join(Reactify::Specs::Generators.dummy_app_path, 'node_modules')
-        Rails::Generators.invoke('reactify:install', [], {
-          destination_root: Reactify::Specs::Generators.dummy_app_path,
-        })
+        unless File.directory? File.join(Reactify::Specs::Generators.dummy_app_path, 'node_modules')
+          Rails::Generators.invoke('reactify:install', [], {
+            destination_root: Reactify::Specs::Generators.dummy_app_path,
+          })
+        end
       end
     end
   end
