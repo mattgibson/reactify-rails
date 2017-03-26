@@ -96,12 +96,6 @@ webpack: npm run webpack
       it { is_expected.to exist }
     end
 
-    describe 'the server_render_listener.jsx file' do
-      subject { file_in_dummy_app('webpack/server_render_listener.js') }
-
-      it { is_expected.to exist }
-    end
-
     describe 'the redux store' do
       subject { file_in_dummy_app('webpack/redux/store/index.js')}
 
