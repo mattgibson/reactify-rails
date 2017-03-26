@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
         #  so re-raising the error is ignored.
       end
 
+      renderer.shutdown
+
       format.html { render 'reactify/spa' }
     end
   end

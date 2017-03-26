@@ -10,6 +10,11 @@ module Reactify
       return_rendered_response
     end
 
+    def shutdown
+      stdin.close
+      stdout_stderror.close
+    end
+
     private
 
     attr_reader :stdin, :stdout_stderror
