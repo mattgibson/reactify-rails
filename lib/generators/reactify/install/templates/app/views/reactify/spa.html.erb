@@ -4,7 +4,7 @@
   window.__CONTROLLER_VARIABLES__ = <%= @reactify_view_assigns.html_safe %>;
 </script>
 <% if Rails.env.development? %>
-  <%= javascript_include_tag 'http://localhost:8080/webpack/reactify_bundle.js' %>
+  <%= javascript_include_tag 'http://localhost:8080/reactify/reactify_bundle.js' %>
 <% else %>
-  <%= javascript_include_tag '/webpack/reactify_bundle.js' %>
+  <%= javascript_include_tag '/reactify/reactify_bundle.js' %>
 <% end %>

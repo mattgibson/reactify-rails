@@ -1,13 +1,33 @@
+require 'open3'
+
 module Reactify
   class NodeRenderer
-    def initialize(renderer_filename:)
+    attr_reader :renderer_filename
+
+    def initialize(renderer_filename:, node_path: nil)
+      @renderer_filename = renderer_filename
+      @node_path = node_path
+      initialize_node_process
+    end
+
+    def initialize_node_process
       @stdin, @stdout_stderror = Open3.popen2e node_command(renderer_filename)
     end
 
-    def render_app(controller_json:)
+    def render_app(controller_json: '{}')
       stdin.puts controller_json
       stdin.puts reactify_end_of_data_delimiter
       return_rendered_response
+    rescue Errno::EPIPE
+      # The node process died. Make a new one.
+      puts 'Reinitializing the node process'
+
+      # This happens when there are syntax errors etc in the JS code because dev work is happening.
+      # It will be a slower start due to re-requiring all the files, but once the errors are fixed,
+      # the page loads and webpack hot module reloading takes over, which is fast,.
+
+      initialize_node_process
+      retry
     end
 
     def shutdown
@@ -19,11 +39,11 @@ module Reactify
 
     attr_reader :stdin, :stdout_stderror
 
-    # NOE_PATH is needed here so that node uses the app node modules instead of
+    # NODE_PATH is needed here so that node uses the app node modules instead of
     # looking in the gem and not finding all the modules.
     def node_command(renderer_filename)
       <<~TEXT.squish
-        NODE_PATH=#{Rails.root}/node_modules 
+        NODE_PATH=#{node_path}
         node #{node_listener_filename} 
           --renderer #{renderer_filename}
           --delimiter #{reactify_end_of_data_delimiter}
@@ -46,6 +66,10 @@ module Reactify
 
     def node_listener_filename
       "#{File.dirname(__FILE__)}/../js/server_render_listener.js"
+    end
+
+    def node_path
+      @node_path || "#{Rails.root}/node_modules"
     end
   end
 end

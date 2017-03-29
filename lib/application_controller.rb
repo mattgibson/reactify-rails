@@ -2,7 +2,6 @@
 # render when there is a controller action without a template is the
 # SPA.
 
-require 'open3'
 require 'reactify/node_renderer'
 
 class ApplicationController < ActionController::Base
@@ -11,17 +10,17 @@ class ApplicationController < ActionController::Base
       begin
         @reactify_view_assigns = view_assigns.to_json
 
-        renderer = Reactify::NodeRenderer.new renderer_filename: reactify_renderer_filename
-
-        @reactify_pre_rendered_html = renderer.render_app(controller_json: @reactify_view_assigns)
-
+        @reactify_pre_rendered_html = Reactify.node_renderer.with do |renderer|
+          renderer.render_app(controller_json: @reactify_view_assigns)
+        end
       rescue => e
-        @reactify_pre_rendered_html = e.to_s
-        #  Here, we are already in a rescue block because of rescue_from,
-        #  so re-raising the error is ignored.
-      end
+        @reactify_pre_rendered_html = "Error raised: #{e.class.name}\n#{e.message}\n#{e.backtrace.join("\n")}"
+        Reactify.wipe_out_renderer_pool
 
-      renderer.shutdown
+        # Here, we are already in a rescue block because of rescue_from,
+        # so re-raising the error from the renderer doesn't work. It will be ignored and the
+        # missing template error will get re-raised by Rails.
+      end
 
       format.html { render 'reactify/spa' }
     end
@@ -30,7 +29,7 @@ class ApplicationController < ActionController::Base
   private
 
   def reactify_renderer_filename
-    Rails.root.join 'webpack', 'server_renderer.jsx'
+    Rails.root.join 'reactify', 'server_renderer.jsx'
   end
 
   def reactify_end_of_data_delimiter

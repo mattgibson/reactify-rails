@@ -44,7 +44,7 @@ describe Reactify::Generators::InstallGenerator, type: :generator do
     end
 
     describe 'running the postinstall task' do
-      subject { file_in_dummy_app('public/webpack/reactify_bundle.js') }
+      subject { file_in_dummy_app('public/reactify/reactify_bundle.js') }
 
       it { is_expected.to exist }
     end
@@ -85,25 +85,25 @@ webpack: npm run webpack
 
   describe 'webpack folder' do
     describe 'the reactify_spa.jsx file' do
-      subject { file_in_dummy_app('webpack/client_renderer.jsx') }
+      subject { file_in_dummy_app('reactify/client_renderer.jsx') }
 
       it { is_expected.to exist }
     end
 
     describe 'the server_render.jsx file' do
-      subject { file_in_dummy_app('webpack/server_renderer.jsx') }
+      subject { file_in_dummy_app('reactify/server_renderer.jsx') }
 
       it { is_expected.to exist }
     end
 
     describe 'the redux store' do
-      subject { file_in_dummy_app('webpack/redux/store/index.js')}
+      subject { file_in_dummy_app('reactify/redux/store/index.js')}
 
       it { is_expected.to exist }
     end
 
     describe 'the reducers' do
-      subject { file_in_dummy_app('webpack/redux/reducers/index.js') }
+      subject { file_in_dummy_app('reactify/redux/reducers/index.js') }
 
       it { is_expected.to exist }
     end
